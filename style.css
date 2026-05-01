@@ -68,6 +68,12 @@ footer {
   color: #00ff00;
   text-align: center;
   padding: 20px;
-  margin-top: 40px;
   border-top: 2px solid #00ff00;
+
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
+
