@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hacker Zone</title>
-  <link rel="stylesheet" href="style.css"> <!-- external CSS -->
+  <title>TaskFlow Login</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <script type="module" src="script.js"></script>
 </head>
 <body>
-  <div class="matrix-bg">
-    <canvas id="matrix"></canvas>
+
+<div class="container">
+
+  <h1 class="title">TASKFLOW</h1>
+
+  <!-- EMAIL -->
+  <label>Email</label>
+  <input type="text" id="loginEmail" placeholder="Email">
+
+  <!-- PASSWORD -->
+  <label>Password</label>
+  <div class="password-box">
+    <input type="password" id="loginPassword" placeholder="Password">
   </div>
-  <header>
-    <h1>Hacker Zone</h1>
-  </header>
-  <section class="hero" id="home">
-    <div class="typing">Access Granted... Welcome to Hacker Zone</div>
-    <div class="terminal" id="terminal"></div>
-  </section>
-  <footer>
-    <p>&copy; 2025 Hacker Zone. All Rights Reserved.</p>
-  </footer>
-  <script src="script.js"></script> <!-- external JS -->
+
+  <!-- BUTTON -->
+  <button id="loginBtn">Login</button>
+
+  <!-- LINKS (BUMALIK NA) -->
+  <p class="link" onclick="goSignup()">Create account</p>
+  <p class="link" onclick="goForgot()">Forgot password?</p>
+
+</div>
+
 </body>
 </html>
