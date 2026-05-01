@@ -72,6 +72,17 @@ window.goLogin = () => {
 window.goForgot = () => {
   window.location.href = "forgot.html";
 };
+function logout() {
+  hideAll();
+  document.getElementById('login').classList.remove('hidden');
+  document.getElementById('header').innerText = "Login";
+}
+
+function forgotPassword() {
+  hideAll();
+  document.getElementById('reset').classList.remove('hidden');
+  document.getElementById('header').innerText = "Reset Password";
+}
 
 
 
