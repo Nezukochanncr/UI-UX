@@ -1,37 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>TaskFlow Login</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-
-  <script type="module" src="script.js"></script>
+  <meta charset="UTF-8">
+  <title>TaskFlowApp</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0;
+           background: linear-gradient(90deg, #94b9ff, #e894ff); }
+    header { color:white; padding:15px; text-align:center; font-size:20px; }
+    .hidden { display:none; }
+    .tasks, .calendar, .profile { padding:20px; }
+    .task { background:white; margin-bottom:10px; padding:10px; border-radius:6px;
+            display:flex; justify-content:space-between; align-items:center; }
+    .actions button { margin-left:5px; }
+    nav { position:fixed; bottom:0; width:100%; background:#fff; display:flex;
+          justify-content:space-around; padding:10px 0; border-top:1px solid #ccc; }
+    nav button { border:none; background:none; font-size:14px; cursor:pointer; }
+    .plus-btn { background:#4CAF50; color:white; border-radius:50%; width:40px; height:40px;
+                font-size:24px; line-height:40px; }
+    .avatar { width:80px; height:80px; border-radius:50%; background:#ccc; margin:auto; }
+    .menu-item { background:white; padding:15px; margin:5px; border-radius:6px; cursor:pointer; }
+  </style>
 </head>
 <body>
+  <header id="header">Good Morning, Nezuko chan!</header>
 
-<div class="container">
-
-  <h1 class="title">TASKFLOW</h1>
-
-  <!-- EMAIL -->
-  <label>Email</label>
-  <input type="text" id="loginEmail" placeholder="Email">
-
-  <!-- PASSWORD -->
-  <label>Password</label>
-  <div class="password-box">
-    <input type="password" id="loginPassword" placeholder="Password">
+  <!-- Dashboard -->
+  <div id="dashboard" class="tasks">
+    <h2>MY TASK</h2>
+    <div class="task">
+      <span>Do assignment (Deadline: Apr 20)</span>
+      <div class="actions">
+        <button onclick="editTask()">Edit</button>
+        <button onclick="deleteTask()">Delete</button>
+      </div>
+    </div>
+    <div class="task">
+      <span>UI Project (Deadline: Apr 22)</span>
+      <div class="actions">
+        <button onclick="editTask()">Edit</button>
+        <button onclick="deleteTask()">Delete</button>
+      </div>
+    </div>
+    <div class="task">
+      <span>Study for exam (Deadline: Apr 25)</span>
+      <div class="actions">
+        <button onclick="editTask()">Edit</button>
+        <button onclick="deleteTask()">Delete</button>
+      </div>
+    </div>
   </div>
 
-  <!-- BUTTON -->
-  <button id="loginBtn">Login</button>
+  <!-- Calendar -->
+  <div id="calendar" class="calendar hidden">
+    <h2>April 2026</h2>
+    <p>[Calendar grid dito]</p>
+    <button onclick="showDashboard()">Back</button>
+    <button onclick="showYear()">2026</button>
+  </div>
 
-  <!-- LINKS (BUMALIK NA) -->
-  <p class="link" onclick="goSignup()">Create account</p>
-  <p class="link" onclick="goForgot()">Forgot password?</p>
+  <!-- Year view -->
+  <div id="year" class="calendar hidden">
+    <h2>Year 2026</h2>
+    <p>[All months grid dito]</p>
+    <button onclick="showCalendar()">Back</button>
+  </div>
 
-</div>
+  <!-- Profile -->
+  <div id="profile" class="profile hidden">
+    <div class="avatar"></div>
+    <h3>Nezuko Chan</h3>
+    <p>Nezukoegmail.com</p>
+    <div class="menu-item">Language ›</div>
+    <div class="menu-item">About ›</div>
+    <div class="menu-item">Terms & Conditions ›</div>
+    <div class="menu-item">Forgot password ›</div>
+    <div class="menu-item">Log out ›</div>
+    <button onclick="showDashboard()">Back</button>
+  </div>
 
+  <!-- Navigation -->
+  <nav>
+    <button onclick="showCalendar()">Calendar</button>
+    <button class="plus-btn" onclick="addTask()">+</button>
+    <button onclick="showProfile()">Profile</button>
+  </nav>
+
+  <script>
+    function showDashboard() {
+      hideAll(); document.getElementById('dashboard').classList.remove('hidden');
+      document.getElementById('header').innerText = "Good Morning, Nezuko chan!";
+    }
+    function showCalendar() {
+      hideAll(); document.getElementById('calendar').classList.remove('hidden');
+      document.getElementById('header').innerText = "Calendar";
+    }
+    function showYear() {
+      hideAll(); document.getElementById('year').classList.remove('hidden');
+      document.getElementById('header').innerText = "Year 2026";
+    }
+    function showProfile() {
+      hideAll(); document.getElementById('profile').classList.remove('hidden');
+      document.getElementById('header').innerText = "Profile";
+    }
+    function hideAll() {
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('calendar').classList.add('hidden');
+      document.getElementById('year').classList.add('hidden');
+      document.getElementById('profile').classList.add('hidden');
+    }
+    function editTask() { alert("Edit task clicked!"); }
+    function deleteTask() { alert("Delete task clicked!"); }
+    function addTask() { alert("Add task clicked!"); }
+  </script>
 </body>
 </html>
