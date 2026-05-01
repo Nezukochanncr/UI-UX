@@ -1,16 +1,126 @@
-<div class="container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 20px;
+    }
+    .tasks {
+      padding: 20px;
+    }
+    .task {
+      background: white;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .task-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .task-title {
+      font-weight: bold;
+    }
+    .deadline {
+      font-size: 12px;
+      color: gray;
+    }
+    .actions button {
+      margin-left: 5px;
+      border: none;
+      background: #eee;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      border-top: 1px solid #ccc;
+    }
+    nav button {
+      border: none;
+      background: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .plus-btn {
+      background: #4CAF50;
+      color: white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 24px;
+      line-height: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Good Morning, Nezuko chan!
+  </header>
 
-<h1 id="welcome">Loading...</h1>
+  <div class="tasks">
+    <h2>MY TASK</h2>
 
-<input id="taskInput" placeholder="Task">
-<input type="date" id="taskDate">
+    <div class="task">
+      <div class="task-info">
+        <span class="task-title">Do assignment</span>
+        <span class="deadline">Deadline: April 20</span>
+      </div>
+      <div class="actions">
+        <button>Edit</button>
+        <button>Delete</button>
+      </div>
+    </div>
 
-<button onclick="addTask()">Add Task</button>
+    <div class="task">
+      <div class="task-info">
+        <span class="task-title">UI Project</span>
+        <span class="deadline">Deadline: April 22</span>
+      </div>
+      <div class="actions">
+        <button>Edit</button>
+        <button>Delete</button>
+      </div>
+    </div>
 
-<ul id="taskList"></ul>
+    <div class="task">
+      <div class="task-info">
+        <span class="task-title">Study for exam</span>
+        <span class="deadline">Deadline: April 25</span>
+      </div>
+      <div class="actions">
+        <button>Edit</button>
+        <button>Delete</button>
+      </div>
+    </div>
+  </div>
 
-<button onclick="toggleDark()">Dark Mode</button>
-<button onclick="goProfile()">Profile</button>
-<button onclick="logout()">Logout</button>
-
-</div>
+  <nav>
+    <button>Calendar</button>
+    <button class="plus-btn">+</button>
+    <button>Profile</button>
+  </nav>
+</body>
+</html>
