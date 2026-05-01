@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calendar App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+      text-align: center;
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 15px;
+      font-size: 20px;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      padding: 20px;
+    }
+    .day {
+      background: white;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .nav {
+      margin: 15px;
+    }
+    button {
+      padding: 8px 12px;
+      margin: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .back-btn {
+      background: #ccc;
+    }
+    .year-view {
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding: 20px;
+    }
+    .month {
+      background: white;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header id="header">April 2026</header>
+
+  <!-- Month view -->
+  <div id="month-view" class="calendar">
+    <div class="day">Su</div><div class="day">Mo</div><div class="day">Tu</div>
+    <div class="day">We</div><div class="day">Th</div><div class="day">Fr</div><div class="day">Sa</div>
+    <!-- Example days -->
+    <div class="day"></div><div class="day"></div><div class="day"></div>
+    <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div>
+    <!-- etc... -->
+  </div>
+
+  <!-- Year view -->
+  <div id="year-view" class="year-view">
+    <div class="month">2026 JANUARY</div>
+    <div class="month">2026 FEBRUARY</div>
+    <div class="month">2026 MARCH</div>
+    <div class="month">2026 APRIL</div>
+    <div class="month">2026 MAY</div>
+    <!-- add all months -->
+  </div>
+
+  <div class="nav">
+    <button onclick="showYear()">2026</button>
+    <button class="back-btn" onclick="goBack()">Back</button>
+  </div>
+
+  <script>
+    function showYear() {
+      document.getElementById('month-view').style.display = 'none';
+      document.getElementById('year-view').style.display = 'grid';
+      document.getElementById('header').innerText = 'Year 2026';
+    }
+
+    function goBack() {
+      document.getElementById('year-view').style.display = 'none';
+      document.getElementById('month-view').style.display = 'grid';
+      document.getElementById('header').innerText = 'April 2026';
+    }
+  </script>
+</body>
+</html>
