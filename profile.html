@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+    }
+    header button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .profile {
+      text-align: center;
+      padding: 20px;
+    }
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #ccc;
+      margin: auto;
+    }
+    .name {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .email {
+      color: gray;
+      margin-bottom: 20px;
+    }
+    .menu {
+      background: white;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button onclick="goBack()">←</button>
+    <span>Profile</span>
+  </header>
+
+  <div class="profile">
+    <div class="avatar"></div>
+    <div class="name">Nezuko Chan</div>
+    <div class="email">Nezukoegmail.com</div>
+  </div>
+
+  <div class="menu">
+    <div class="menu-item">Language <span>›</span></div>
+    <div class="menu-item">About <span>›</span></div>
+    <div class="menu-item">Terms & Conditions <span>›</span></div>
+    <div class="menu-item">Forgot password <span>›</span></div>
+    <div class="menu-item">Log out <span>›</span></div>
+  </div>
+
+  <script>
+    function goBack() {
+      alert("Back button clicked! Dito mo ilalagay yung code para bumalik sa previous page.");
+      // Halimbawa: window.history.back();
+    }
+  </script>
+</body>
+</html>
