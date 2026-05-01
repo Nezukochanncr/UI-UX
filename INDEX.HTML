@@ -1,179 +1,158 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Modern Login Page</title>
-
+  <title>Hacker Zone</title>
   <style>
-
-    body {
-
+    * {
       margin: 0;
-
       padding: 0;
-
-      font-family: 'Poppins', sans-serif;
-
-      height: 100vh;
-
-      display: flex;
-
-      justify-content: center;
-
-      align-items: center;
-
-      background: url('https://picsum.photos/1600/900?blur=5') no-repeat center center/cover;
-
+      box-sizing: border-box;
+      font-family: 'Courier New', monospace;
     }
-
-    .login-container {
-
-      background: rgba(255, 255, 255, 0.15);
-
-      backdrop-filter: blur(12px);
-
-      border-radius: 20px;
-
-      padding: 40px;
-
-      width: 350px;
-
+    body {
+      background: #000;
+      color: #00ff00;
+      overflow-x: hidden;
+    }
+    header {
+      background: #111;
+      padding: 20px;
       text-align: center;
-
-      color: white;
-
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-
-      animation: fadeIn 1.2s ease-in-out;
-
+      border-bottom: 2px solid #00ff00;
     }
-
-    .login-container h2 {
-
-      margin-bottom: 20px;
-
-      font-size: 28px;
-
+    header h1 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px #00ff00;
     }
-
-    .login-container input {
-
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+    }
+    .typing {
+      font-size: 1.5rem;
+      border-right: 3px solid #00ff00;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #00ff00; }
+    }
+    .matrix-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-
-      padding: 12px;
-
-      margin: 12px 0;
-
-      border: none;
-
-      border-radius: 10px;
-
-      outline: none;
-
-      font-size: 16px;
-
+      height: 100%;
+      background: black;
+      z-index: -1;
+      overflow: hidden;
     }
-
-    .login-container input[type="text"],
-
-    .login-container input[type="password"] {
-
-      background: rgba(255, 255, 255, 0.8);
-
+    canvas {
+      display: block;
     }
-
-    .login-container button {
-
-      width: 100%;
-
-      padding: 12px;
-
-      border: none;
-
-      border-radius: 10px;
-
-      background: linear-gradient(135deg, #667eea, #764ba2);
-
-      color: white;
-
-      font-size: 18px;
-
-      cursor: pointer;
-
-      margin-top: 15px;
-
-      transition: 0.3s;
-
+    .terminal {
+      text-align: left;
+      margin: 40px auto 0;
+      max-width: 600px;
+      background: #111;
+      border: 1px solid #00ff00;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px #00ff00;
+      font-size: 1rem;
     }
-
-    .login-container button:hover {
-
-      background: linear-gradient(135deg, #5563c1, #5c3c8a);
-
+    footer {
+      background: #111;
+      color: #00ff00;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      border-top: 2px solid #00ff00;
     }
-
-    .extra {
-
-      margin-top: 15px;
-
-      font-size: 14px;
-
-    }
-
-    .extra a {
-
-      color: #fff;
-
-      text-decoration: none;
-
-      font-weight: bold;
-
-    }
-
-    @keyframes fadeIn {
-
-      from { opacity: 0; transform: translateY(-30px); }
-
-      to { opacity: 1; transform: translateY(0); }
-
-    }
-
   </style>
-
 </head>
-
 <body>
-
-  <div class="login-container">
-
-    <h2>Welcome Back</h2>
-
-    <form>
-
-      <input type="text" placeholder="Username" required>
-
-      <input type="password" placeholder="Password" required>
-
-      <button type="submit">Login</button>
-
-    </form>
-
-    <div class="extra">
-
-      <p>Forgot your password? <a href="#">Reset</a></p>
-
-      <p>New here? <a href="#">Create Account</a></p>
-
-    </div>
-
+  <div class="matrix-bg">
+    <canvas id="matrix"></canvas>
   </div>
+  <header>
+    <h1>Hacker Zone</h1>
+  </header>
+  <section class="hero" id="home">
+    <div class="typing">Access Granted... Welcome to Hacker Zone</div>
 
+    <div class="terminal" id="terminal"></div>
+  </section>
+  <footer>
+    <p>&copy; 2025 Hacker Zone. All Rights Reserved.</p>
+  </footer>
+  <script>
+    // Matrix Effect
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    const letters = '01';
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+    for (let x = 0; x < columns; x++) drops[x] = 1;
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0F0';
+      ctx.font = fontSize + 'px monospace';
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 35);
+
+    // Simulated Terminal Messages
+    const terminal = document.getElementById("terminal");
+    const messages = [
+      "Your account has been hacked.",
+      "[ACCESS GRANTED]",
+      "Decrypting password..",
+      "Bypassing firewall..",
+      "Uploading payload..",
+      "Trace detected! Masking IP."
+    ];
+    let i = 0;
+
+    function typeMessage(msg, callback) {
+      let j = 0;
+      const interval = setInterval(() => {
+        terminal.innerHTML += msg[j];
+        j++;
+        if (j >= msg.length) {
+          clearInterval(interval);
+          terminal.innerHTML += "<br>";
+          setTimeout(callback, 500);
+        }
+      }, 50);
+    }
+
+    function nextMessage() {
+      if (i < messages.length) {
+        typeMessage(messages[i], nextMessage);
+        i++;
+      }
+    }
+
+    nextMessage();
+  </script>
 </body>
-
 </html>
