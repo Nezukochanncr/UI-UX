@@ -3,39 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>TaskFlowApp</title>
-  <!-- Import Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin:0;
-      background: linear-gradient(90deg, #94b9ff, #e894ff);
-    }
+    body { font-family:'Poppins',sans-serif; margin:0;
+           background:linear-gradient(90deg,#94b9ff,#e894ff); }
     header { color:white; padding:15px; text-align:center; font-size:20px; font-weight:600; }
     .hidden { display:none; }
-    .tasks, .calendar, .profile { padding:20px; }
-    .task {
-      background:white; margin-bottom:10px; padding:10px; border-radius:6px;
-      display:flex; justify-content:space-between; align-items:center;
-    }
+    .tasks,.calendar,.profile { padding:20px; }
+    .task { background:white; margin-bottom:10px; padding:10px; border-radius:6px;
+            display:flex; justify-content:space-between; align-items:center; }
     .actions button { margin-left:5px; }
-    nav {
-      position:fixed; bottom:0; width:100%; background:#fff; display:flex;
-      justify-content:space-around; padding:10px 0; border-top:1px solid #ccc;
-    }
+    nav { position:fixed; bottom:0; width:100%; background:#fff; display:flex;
+          justify-content:space-around; padding:10px 0; border-top:1px solid #ccc; }
     nav button { border:none; background:none; font-size:14px; cursor:pointer; }
-    .plus-btn {
-      background:#4CAF50; color:white; border-radius:50%; width:40px; height:40px;
-      font-size:24px; line-height:40px;
-    }
+    .plus-btn { background:linear-gradient(90deg,#94b9ff,#e894ff); color:white;
+                border-radius:50%; width:40px; height:40px; font-size:24px; line-height:40px; border:none; }
     .avatar { width:80px; height:80px; border-radius:50%; background:#ccc; margin:auto; }
     .menu-item { background:white; padding:15px; margin:5px; border-radius:6px; cursor:pointer; }
     .nav-btn { margin:5px; padding:8px 12px; border:none; border-radius:4px; cursor:pointer; }
+    .month-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-top:10px; }
+    .month-grid div { background:white; padding:10px; border-radius:4px; text-align:center; cursor:pointer; }
+    .yellow { background:#fff59d; } /* malayo pa */
+    .red { background:#ef9a9a; }    /* malapit na */
+    .green { background:#a5d6a7; }  /* tapos na */
     #year-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
     #year-grid div { background:white; padding:10px; border-radius:6px; }
     #year-grid h3 { margin:0; font-size:14px; }
-    #year-grid .month-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; font-size:12px; }
-    #year-grid .month-grid div { text-align:center; }
   </style>
 </head>
 <body>
@@ -47,30 +40,30 @@
     <div class="task">
       <span>Do assignment (Deadline: Apr 20)</span>
       <div class="actions">
-        <button onclick="editTask()">Edit</button>
-        <button onclick="deleteTask()">Delete</button>
+        <button onclick="editTask('Do assignment','Math homework','2026-04-20')">Edit</button>
+        <button onclick="deleteTask('Do assignment')">Delete</button>
       </div>
     </div>
     <div class="task">
       <span>UI Project (Deadline: Apr 22)</span>
       <div class="actions">
-        <button onclick="editTask()">Edit</button>
-        <button onclick="deleteTask()">Delete</button>
+        <button onclick="editTask('UI Project','Finish design in Canva','2026-04-22')">Edit</button>
+        <button onclick="deleteTask('UI Project')">Delete</button>
       </div>
     </div>
     <div class="task">
       <span>Study for exam (Deadline: Apr 25)</span>
       <div class="actions">
-        <button onclick="editTask()">Edit</button>
-        <button onclick="deleteTask()">Delete</button>
+        <button onclick="editTask('Study for exam','Review chapters 1-5','2026-04-25')">Edit</button>
+        <button onclick="deleteTask('Study for exam')">Delete</button>
       </div>
     </div>
   </div>
 
   <!-- Calendar -->
   <div id="calendar" class="calendar hidden">
-    <h2>April 2026</h2>
-    <p>[Calendar grid dito]</p>
+    <h2 id="month-title"></h2>
+    <div id="month-grid" class="month-grid"></div>
     <button class="nav-btn" onclick="showDashboard()">Back</button>
     <button class="nav-btn" onclick="showYear()">2026</button>
   </div>
@@ -96,65 +89,14 @@
     <button class="nav-btn" onclick="showDashboard()">Back</button>
   </div>
 
-  <!-- Navigation -->
-  <nav>
-    <button onclick="showCalendar()">Calendar</button>
-    <button class="plus-btn" onclick="addTask()">+</button>
-    <button onclick="showProfile()">Profile</button>
-  </nav>
-
-  <script>
-    function showDashboard() {
-      hideAll(); document.getElementById('dashboard').classList.remove('hidden');
-      document.getElementById('header').innerText = "Good Morning, Nezuko chan!";
-    }
-    function showCalendar() {
-      hideAll(); document.getElementById('calendar').classList.remove('hidden');
-      document.getElementById('header').innerText = "Calendar";
-    }
-    function showYear() {
-      hideAll(); document.getElementById('year').classList.remove('hidden');
-      document.getElementById('header').innerText = "Year 2026";
-      generateYear(2026);
-    }
-    function showProfile() {
-      hideAll(); document.getElementById('profile').classList.remove('hidden');
-      document.getElementById('header').innerText = "Profile";
-    }
-    function showToday() {
-      hideAll(); document.getElementById('calendar').classList.remove('hidden');
-      document.getElementById('header').innerText = "Today - April 2026";
-    }
-    function hideAll() {
-      document.getElementById('dashboard').classList.add('hidden');
-      document.getElementById('calendar').classList.add('hidden');
-      document.getElementById('year').classList.add('hidden');
-      document.getElementById('profile').classList.add('hidden');
-    }
-    function editTask() { alert("Edit task clicked!"); }
-    function deleteTask() { alert("Delete task clicked!"); }
-    function addTask() { alert("Add task clicked!"); }
-
-    // Generate full year calendar
-    function generateYear(year) {
-      const yearGrid = document.getElementById('year-grid');
-      yearGrid.innerHTML = "";
-      const months = ["January","February","March","April","May","June",
-                      "July","August","September","October","November","December"];
-      months.forEach((month, i) => {
-        const firstDay = new Date(year, i, 1).getDay(); // 0=Sunday
-        const daysInMonth = new Date(year, i+1, 0).getDate();
-        let html = `<h3>${month} ${year}</h3><div class="month-grid">`;
-        const weekDays = ["Su","Mo","Tu","We","Th","Fr","Sa"];
-        weekDays.forEach(d => html += `<div><b>${d}</b></div>`);
-        for(let j=0;j<firstDay;j++) html += "<div></div>";
-        for(let d=1; d<=daysInMonth; d++) html += `<div>${d}</div>`;
-        html += "</div>";
-        const div = document.createElement("div");
-        div.innerHTML = html;
-        yearGrid.appendChild(div);
-      });
-    }
-  </script>
-</body>
-</html>
+  <!-- Add Task Form -->
+  <div id="add-task" class="hidden" style="padding:20px;">
+    <h2>Add Task</h2>
+    <label>Task Name:</label><br>
+    <input type="text" id="taskName" style="width:100%;padding:8px;margin:5px 0;"><br>
+    <label>Description:</label><br>
+    <textarea id="taskDesc" style="width:100%;padding:8px;margin:5px 0;"></textarea><br>
+    <label>Date:</label><br>
+    <input type="date" id="taskDate" style="width:100%;padding:8px;margin:5px 0;"><br>
+    <button onclick="saveTask()" style="width:100%;padding:12px;border:none;border-radius:6px;
+      background:linear-gradient
