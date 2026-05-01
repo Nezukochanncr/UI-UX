@@ -4,81 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hacker Zone</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Courier New', monospace;
-    }
-    body {
-      background: #000;
-      color: #00ff00;
-      overflow-x: hidden;
-    }
-    header {
-      background: #111;
-      padding: 20px;
-      text-align: center;
-      border-bottom: 2px solid #00ff00;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      text-shadow: 0 0 10px #00ff00;
-    }
-    .hero {
-      text-align: center;
-      padding: 100px 20px;
-    }
-    .typing {
-      font-size: 1.5rem;
-      border-right: 3px solid #00ff00;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
-    }
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-    @keyframes blink {
-      from, to { border-color: transparent }
-      50% { border-color: #00ff00; }
-    }
-    .matrix-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      z-index: -1;
-      overflow: hidden;
-    }
-    canvas {
-      display: block;
-    }
-    .terminal {
-      text-align: left;
-      margin: 40px auto 0;
-      max-width: 600px;
-      background: #111;
-      border: 1px solid #00ff00;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 15px #00ff00;
-      font-size: 1rem;
-    }
-    footer {
-      background: #111;
-      color: #00ff00;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      border-top: 2px solid #00ff00;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css"> <!-- external CSS -->
 </head>
 <body>
   <div class="matrix-bg">
@@ -89,70 +15,11 @@
   </header>
   <section class="hero" id="home">
     <div class="typing">Access Granted... Welcome to Hacker Zone</div>
-
     <div class="terminal" id="terminal"></div>
   </section>
   <footer>
     <p>&copy; 2025 Hacker Zone. All Rights Reserved.</p>
   </footer>
-  <script>
-    // Matrix Effect
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-    const letters = '01';
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    const drops = [];
-    for (let x = 0; x < columns; x++) drops[x] = 1;
-    function draw() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#0F0';
-      ctx.font = fontSize + 'px monospace';
-      for (let i = 0; i < drops.length; i++) {
-        const text = letters.charAt(Math.floor(Math.random() * letters.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-      }
-    }
-    setInterval(draw, 35);
-
-    // Simulated Terminal Messages
-    const terminal = document.getElementById("terminal");
-    const messages = [
-      "Your account has been hacked.",
-      "[ACCESS GRANTED]",
-      "Decrypting password..",
-      "Bypassing firewall..",
-      "Uploading payload..",
-      "Trace detected! Masking IP."
-    ];
-    let i = 0;
-
-    function typeMessage(msg, callback) {
-      let j = 0;
-      const interval = setInterval(() => {
-        terminal.innerHTML += msg[j];
-        j++;
-        if (j >= msg.length) {
-          clearInterval(interval);
-          terminal.innerHTML += "<br>";
-          setTimeout(callback, 500);
-        }
-      }, 50);
-    }
-
-    function nextMessage() {
-      if (i < messages.length) {
-        typeMessage(messages[i], nextMessage);
-        i++;
-      }
-    }
-
-    nextMessage();
-  </script>
+  <script src="script.js"></script> <!-- external JS -->
 </body>
 </html>
