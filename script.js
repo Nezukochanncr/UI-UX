@@ -1,58 +1,89 @@
-// Matrix Effect
-const canvas = document.getElementById('matrix');
-const ctx = canvas.getContext('2d');
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
-const letters = '01';
-const fontSize = 14;
-const columns = canvas.width / fontSize;
-const drops = [];
-for (let x = 0; x < columns; x++) drops[x] = 1;
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-function draw() {
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#0F0';
-  ctx.font = fontSize + 'px monospace';
-  for (let i = 0; i < drops.length; i++) {
-    const text = letters.charAt(Math.floor(Math.random() * letters.length));
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-    drops[i]++;
-  }
-}
-setInterval(draw, 35);
+// FIREBASE CONFIG
+const firebaseConfig = {
+  apiKey: "AIzaSyCVxIpw5QZugmO6ahrGm9mhzR3qO-6uwLI",
+  authDomain: "task-app-3ee4a.firebaseapp.com",
+  projectId: "task-app-3ee4aD",
+};
 
-// Simulated Terminal Messages
-const terminal = document.getElementById("terminal");
-const messages = [
-  "Your account has been hacked.",
-  "[ACCESS GRANTED]",
-  "Decrypting password..",
-  "Bypassing firewall..",
-  "Uploading payload..",
-  "Trace detected! Masking IP."
-];
-let i = 0;
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-function typeMessage(msg, callback) {
-  let j = 0;
-  const interval = setInterval(() => {
-    terminal.innerHTML += msg[j];
-    j++;
-    if (j >= msg.length) {
-      clearInterval(interval);
-      terminal.innerHTML += "<br>";
-      setTimeout(callback, 500);
+
+
+// ================= SIGNUP =================
+document.getElementById("signupBtn")?.addEventListener("click", () => {
+
+  let email = document.getElementById("signupEmail").value;
+  let pass = document.getElementById("signupPassword").value;
+
+  createUserWithEmailAndPassword(auth, email, pass)
+  .then((userCredential) => {
+
+    sendEmailVerification(userCredential.user);
+
+    alert("Verification email sent!");
+    window.location.href = "index.html";
+
+  })
+  .catch(err => alert(err.message));
+});
+
+
+
+// ================= LOGIN =================
+document.getElementById("loginBtn")?.addEventListener("click", () => {
+
+  let email = document.getElementById("loginEmail").value;
+  let pass = document.getElementById("loginPassword").value;
+
+  signInWithEmailAndPassword(auth, email, pass)
+  .then((user) => {
+
+    if (user.user.emailVerified) {
+      alert("Login Success!");
+      window.location.href = "dashboard.html";
+    } else {
+      alert("Please verify your email first!");
     }
-  }, 50);
-}
 
-function nextMessage() {
-  if (i < messages.length) {
-    typeMessage(messages[i], nextMessage);
-    i++;
+  })
+  .catch(err => alert(err.message));
+});
+
+
+
+// ================= NAVIGATION =================
+window.goSignup = () => {
+  window.location.href = "signup.html";
+};
+
+window.goLogin = () => {
+  window.location.href = "index.html";
+};
+
+window.goForgot = () => {
+  window.location.href = "forgot.html";
+};
+
+
+
+// ================= PASSWORD TOGGLE =================
+window.togglePassword = function(id, icon) {
+  let input = document.getElementById(id);
+
+  if (input.type === "password") {
+    input.type = "text";
+    icon.innerHTML = "🙈";
+  } else {
+    input.type = "password";
+    icon.innerHTML = "👁";
   }
-}
-
-nextMessage();
+};
